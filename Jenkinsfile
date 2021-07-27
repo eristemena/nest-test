@@ -3,9 +3,15 @@ pipeline {
   tools {nodejs "node"}
   
   stages {
-    stage('Example') {
+    stage('Install dependencies') {
       steps {
-        sh 'npm config ls'
+        sh 'npm install'
+      }
+    }
+
+    stage('Test') {
+      steps {
+         sh 'npm test'
       }
     }
     
