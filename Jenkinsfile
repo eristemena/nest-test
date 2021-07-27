@@ -14,6 +14,10 @@ pipeline {
         withSonarQubeEnv(installationName: 'sonarqube', envOnly: true) {
           println "${env.SONAR_HOST_URL}"
         }
+        
+        withSonarQubeEnv(installationName: 'sonarqube') {
+          sh "${scannerHome}/bin/sonar-scanner"
+        }
       }
     }
 
