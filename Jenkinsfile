@@ -8,13 +8,14 @@ pipeline {
       }
     }
 
-    stage('Test') {
+    stage('Sonarqube') {
       agent any
       steps {
-        withSonarQubeEnv(installationName: 'sonarqube', envOnly: true) {
-          println "${env.SONAR_HOST_URL}"
+        environment {
+          scannerHome = tool 'SonarQubeScanner'
         }
         
+       
         withSonarQubeEnv(installationName: 'sonarqube') {
           sh "${scannerHome}/bin/sonar-scanner"
         }
