@@ -15,6 +15,12 @@ pipeline {
       }
     }
     
+    stage('Test Cov') {
+      steps {
+         sh 'npm run test:cov'
+      }
+    }
+    
     stage('Sonarqube') {
       environment {
         scannerHome = tool 'sonarqube-scanner'
