@@ -1,7 +1,5 @@
 pipeline {
   agent any
-  tools {nodejs "node"}
-  
   stages {
     stage('Install dependencies') {
       steps {
@@ -11,27 +9,36 @@ pipeline {
 
     stage('Test') {
       steps {
-         sh 'npm test'
+        sh 'npm test'
       }
     }
-    
+
     stage('Test Cov') {
       steps {
-         sh 'npm run test:cov'
+        sh 'npm run test:cov'
       }
     }
-    
+
     stage('Sonarqube') {
       environment {
-        scannerHome = tool 'sonarqube-scanner'
+        scannerHome = 'sonarqube-scanner'
       }
-
       steps {
-        withSonarQubeEnv(installationName: 'sonarqube') {
+        withSonarQubeEnv('sonarqube') {
           sh "${scannerHome}/bin/sonar-scanner"
         }
+
       }
     }
 
+    stage('Build Docker') {
+      steps {
+        sh 'sh "echo \'why?\'"'
+      }
+    }
+
+  }
+  tools {
+    nodejs 'node'
   }
 }
