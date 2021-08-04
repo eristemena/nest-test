@@ -1,4 +1,4 @@
-FROM node:14.17.0-alpine AS builder
+FROM ubi8/nodejs-14 AS builder
 
 RUN apk update && apk add --no-cache --virtual .build-deps make gcc g++ python
 
@@ -12,7 +12,7 @@ COPY . .
 
 RUN npm build
 
-FROM node:14.17.0-alpine AS runner
+FROM ubi8/nodejs-14 AS runner
 
 WORKDIR /app
 
